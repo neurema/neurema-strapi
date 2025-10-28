@@ -1,0 +1,62 @@
+{
+    "kind": "collectionType",
+    "collectionName": "profiles",
+    "info": {
+        "singularName": "profile",
+        "pluralName": "profiles",
+        "displayName": "Profile",
+        "description": "User profile linked to a plugin user"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "examType": {
+            "type": "string"
+        },
+        "examDate": {
+            "type": "datetime"
+        },
+        "studyMode": {
+            "type": "string"
+        },
+        "isOnBreak": {
+            "type": "boolean",
+            "default": false
+        },
+        "isInstituteLinked": {
+            "type": "boolean",
+            "default": false
+        },
+        "college": {
+            "type": "string"
+        },
+        "collegeEmail": {
+            "type": "string"
+        },
+        "year": {
+            "type": "integer"
+        },
+        "rollNo": {
+            "type": "string"
+        },
+        "dailyTopicLimit": {
+            "type": "integer"
+        },
+        "defaultSessionDuration": {
+            "type": "integer"
+        },
+        "user": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "plugin::users-permissions.user",
+            "inversedBy": "profile"
+        },
+        "user_topics": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::user-topic.user-topic",
+            "mappedBy": "profile"
+        }
+    }
+}

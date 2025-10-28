@@ -1,0 +1,27 @@
+{
+    "kind": "collectionType",
+    "collectionName": "exams",
+    "info": {
+        "singularName": "exam",
+        "pluralName": "exams",
+        "displayName": "Exam",
+        "description": "Exam metadata and grouped topics"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "subjects": {
+            "type": "json"
+        },
+        "highYieldTopics": {
+            "type": "json"
+        },
+        "topics": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::topic.topic",
+            "inversedBy": "exams"
+        }
+    }
+}
