@@ -49,8 +49,7 @@
         "user": {
             "type": "relation",
             "relation": "oneToOne",
-            "target": "plugin::users-permissions.user",
-            "inversedBy": "profile"
+            "target": "plugin::users-permissions.user"
         },
         "user_topics": {
             "type": "relation",
