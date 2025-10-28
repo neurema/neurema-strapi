@@ -1,0 +1,26 @@
+{
+  "collectionName": "user-topics",
+  "info": {
+    "singularName": "user-topic",
+    "pluralName": "user-topics",
+    "displayName": "User-topic"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    
+    "memoryLocation": { "type": "string" },
+    "lastSession": { "type": "datetime" },
+    "nextSession": { "type": "datetime" },
+    "timeTotal": { "type": "integer" },
+    "timeRemaining": { "type": "integer" },
+    "profile": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "user_topics"
+    }
+
+  }
+}

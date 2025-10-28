@@ -1,84 +1,161 @@
 #!/bin/bash
-# setup_strapi_schema.sh
-# Create full schema based on your ER diagram
+# =====================================================
+# Script: create-all-collections.sh
+# Description: Generates Strapi collection types automatically (excluding User)
+# Works with Strapi v4+
+# =====================================================
 
-echo "🚀 Setting up Strapi Content Types..."
+API_PATH="src/api"
 
-# === USERS ===
-npx strapi generate content-type user email:string password:string
+make_collection () {
+  local name=$1
+  local attributes=$2
 
-# === PROFILES ===
-npx strapi generate content-type profile \
-  examType:string \
-  examDate:datetime \
-  studyMode:string \
-  isOnBreak:boolean \
-  isInstituteLinked:boolean \
-  college:string \
-  collegeEmail:string \
-  year:integer \
-  rollNo:string \
-  dailyTopicLimit:integer \
-  defaultSessionDuration:integer
+  mkdir -p "$API_PATH/$name/content-types/$name"
+  cat > "$API_PATH/$name/content-types/$name/schema.json" <<EOF
+{
+  "collectionName": "${name}s",
+  "info": {
+    "singularName": "$name",
+    "pluralName": "${name}s",
+    "displayName": "${name^}"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    $attributes
+  }
+}
+EOF
+  echo "✅ Created: $name"
+}
 
-# === USER_TOPICS ===
-npx strapi generate content-type user-topic \
-  memoryLocation:string \
-  lastSession:datetime \
-  nextSession:datetime \
-  timeTotal:integer \
-  timeRemaining:integer
+echo "🚀 Generating Strapi collection types (excluding user)..."
 
-# === SESSIONS ===
-npx strapi generate content-type session \
-  isPaused:boolean \
-  scheduledFor:datetime \
-  timeTakenForRevision:integer \
-  timeTakenForActivity:integer \
-  timeAllotted:integer \
-  scoreActivity:string
+# ========== PROFILES ==========
+make_collection "profile" '
+    "examType": { "type": "string" },
+    "examDate": { "type": "datetime" },
+    "studyMode": { "type": "string" },
+    "isOnBreak": { "type": "boolean" },
+    "isInstituteLinked": { "type": "boolean" },
+    "college": { "type": "string" },
+    "collegeEmail": { "type": "email" },
+    "year": { "type": "integer" },
+    "rollNo": { "type": "string" },
+    "dailyTopicLimit": { "type": "integer" },
+    "defaultSessionDuration": { "type": "integer" },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "profile"
+    }
+'
 
-# === TOPICS ===
-npx strapi generate content-type topic conceptual:string mcq:string
+# ========== USER_TOPICS ==========
+make_collection "user-topic" '
+    "memoryLocation": { "type": "string" },
+    "lastSession": { "type": "datetime" },
+    "nextSession": { "type": "datetime" },
+    "timeTotal": { "type": "integer" },
+    "timeRemaining": { "type": "integer" },
+    "profile": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "user_topics"
+    }
+'
 
-# === CONCEPTUAL ===
-npx strapi generate content-type conceptual nodes:string
+# ========== SESSIONS ==========
+make_collection "session" '
+    "isPaused": { "type": "boolean" },
+    "scheduledFor": { "type": "datetime" },
+    "timeTakenForRevision": { "type": "integer" },
+    "timeTakenForActivity": { "type": "integer" },
+    "timeAllotted": { "type": "integer" },
+    "scoreActivity": { "type": "string" },
+    "user_topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::user-topic.user-topic",
+      "inversedBy": "sessions"
+    }
+'
 
-# === EDGE ===
-npx strapi generate content-type edge from:string to:string
+# ========== TOPICS ==========
+make_collection "topic" '
+    "conceptual": { "type": "string" },
+    "mcq": { "type": "string" }
+'
 
-# === QUESTION_NODE ===
-npx strapi generate content-type question-node node:string
+# ========== CONCEPTUAL ==========
+make_collection "conceptual" '
+    "nodes": { "type": "string" },
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "conceptuals"
+    }
+'
 
-# === QUESTION ===
-npx strapi generate content-type question question:string options:json correctAnswer:integer
+# ========== EDGE ==========
+make_collection "edge" '
+    "from": { "type": "string" },
+    "to": { "type": "string" },
+    "conceptual": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::conceptual.conceptual",
+      "inversedBy": "edges"
+    }
+'
 
-# === EXAMS ===
-npx strapi generate content-type exam subjects:json highYieldTopics:json
+# ========== QUESTION_NODE ==========
+make_collection "question-node" '
+    "node": { "type": "string" },
+    "conceptual": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::conceptual.conceptual",
+      "inversedBy": "question_nodes"
+    }
+'
 
-echo "✅ Base Content Types Created."
+# ========== QUESTION ==========
+make_collection "question" '
+    "question": { "type": "text" },
+    "options": { "type": "json" },
+    "correctAnswer": { "type": "integer" },
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "questions"
+    },
+    "question_node": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::question-node.question-node",
+      "inversedBy": "questions"
+    }
+'
 
-# === RELATIONS (manual JSON patching) ===
-# You’ll need to add relations in each schema.json like:
-# Example for user -> profile
-# In src/api/user/content-types/user/schema.json:
-#   "attributes": {
-#     "profiles": {
-#       "type": "relation",
-#       "relation": "oneToMany",
-#       "target": "api::profile.profile"
-#     }
-#   }
+# ========== EXAMS ==========
+make_collection "exam" '
+    "subjects": { "type": "json" },
+    "highYieldTopics": { "type": "json" },
+    "topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::topic.topic",
+      "inversedBy": "exam"
+    }
+'
 
-echo "⚙️  Please now define relations manually in schema.json files:"
-echo "   user (1:N) → profile"
-echo "   profile (1:N) → user-topic"
-echo "   user-topic (1:N) → session"
-echo "   topic (1:N) → conceptual"
-echo "   conceptual (1:N) → edge, question-node"
-echo "   question-node (1:N) → question"
-echo "   topic (1:N) → question"
-echo "   exam (1:N) → topic"
-echo ""
-echo "💾 After editing, run: npm run build && npm run develop"
-echo "Done ✅"
+echo "------------------------------------------------"
+echo "🎉 All collections created successfully!"
+echo "👉 Run: npm run develop"

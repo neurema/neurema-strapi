@@ -1,0 +1,23 @@
+{
+  "collectionName": "edges",
+  "info": {
+    "singularName": "edge",
+    "pluralName": "edges",
+    "displayName": "Edge"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    
+    "from": { "type": "string" },
+    "to": { "type": "string" },
+    "conceptual": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::conceptual.conceptual",
+      "inversedBy": "edges"
+    }
+
+  }
+}

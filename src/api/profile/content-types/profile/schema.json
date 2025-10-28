@@ -1,0 +1,32 @@
+{
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    
+    "examType": { "type": "string" },
+    "examDate": { "type": "datetime" },
+    "studyMode": { "type": "string" },
+    "isOnBreak": { "type": "boolean" },
+    "isInstituteLinked": { "type": "boolean" },
+    "college": { "type": "string" },
+    "collegeEmail": { "type": "email" },
+    "year": { "type": "integer" },
+    "rollNo": { "type": "string" },
+    "dailyTopicLimit": { "type": "integer" },
+    "defaultSessionDuration": { "type": "integer" },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "profile"
+    }
+
+  }
+}
