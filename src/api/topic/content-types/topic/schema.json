@@ -1,51 +1,43 @@
 {
-    "kind": "collectionType",
-    "collectionName": "topics",
-    "info": {
-        "singularName": "topic",
-        "pluralName": "topics",
-        "displayName": "Topic",
-        "description": "A study topic which may be conceptual or MCQ-based"
+  "kind": "collectionType",
+  "collectionName": "topics",
+  "info": {
+    "singularName": "topic",
+    "pluralName": "topics",
+    "displayName": "Topic",
+    "description": "A study topic which may be conceptual or MCQ-based"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
     },
-    "options": {
-        "draftAndPublish": false
+    "conceptual": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::conceptual.conceptual",
+      "inversedBy": "topic"
     },
-    "attributes": {
-        "name": {
-            "type": "string"
-        },
-        "type": {
-            "type": "enumeration",
-            "enum": [
-                "conceptual",
-                "mcq",
-                "both"
-            ],
-            "default": "both"
-        },
-        "conceptual": {
-            "type": "relation",
-            "relation": "oneToOne",
-            "target": "api::conceptual.conceptual",
-            "inversedBy": "topic"
-        },
-        "questions": {
-            "type": "relation",
-            "relation": "oneToMany",
-            "target": "api::question.question",
-            "mappedBy": "topic"
-        },
-        "exams": {
-            "type": "relation",
-            "relation": "manyToMany",
-            "target": "api::exam.exam",
-            "mappedBy": "topics"
-        },
-        "user_topics": {
-            "type": "relation",
-            "relation": "oneToMany",
-            "target": "api::user-topic.user-topic",
-            "mappedBy": "topic"
-        }
+    "questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question.question",
+      "mappedBy": "topic"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "topics"
+    },
+    "user_topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-topic.user-topic",
+      "mappedBy": "topic"
     }
+  }
 }

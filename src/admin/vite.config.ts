@@ -8,5 +8,8 @@ export default (config: UserConfig) => {
         '@': '/src',
       },
     },
+    server: {
+    allowedHosts: ['neurema.com', 'www.neurema.com'],
+    }
   });
 };
