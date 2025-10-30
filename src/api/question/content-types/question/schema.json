@@ -4,11 +4,33 @@
   "info": {
     "singularName": "question",
     "pluralName": "questions",
-    "displayName": "Question"
+    "displayName": "Question",
+    "description": "MCQ or question definitions"
   },
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "question": {
+      "type": "text"
+    },
+    "options": {
+      "type": "json"
+    },
+    "correctAnswer": {
+      "type": "integer"
+    },
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "questions"
+    },
+    "question_nodes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question-node.question-node",
+      "mappedBy": "question"
+    }
+  }
 }
