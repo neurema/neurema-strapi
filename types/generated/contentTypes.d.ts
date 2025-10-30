@@ -433,7 +433,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiConceptualConceptual extends Struct.CollectionTypeSchema {
   collectionName: 'conceptuals';
   info: {
-    description: 'Graph of conceptual nodes and edges for a topic';
     displayName: 'Conceptual';
     pluralName: 'conceptuals';
     singularName: 'conceptual';
@@ -445,20 +444,13 @@ export interface ApiConceptualConceptual extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    edges: Schema.Attribute.Relation<'oneToMany', 'api::edge.edge'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::conceptual.conceptual'
     > &
       Schema.Attribute.Private;
-    nodes: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    question_nodes: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::question-node.question-node'
-    >;
-    topic: Schema.Attribute.Relation<'oneToOne', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -468,7 +460,6 @@ export interface ApiConceptualConceptual extends Struct.CollectionTypeSchema {
 export interface ApiEdgeEdge extends Struct.CollectionTypeSchema {
   collectionName: 'edges';
   info: {
-    description: 'Edge linking conceptual nodes';
     displayName: 'Edge';
     pluralName: 'edges';
     singularName: 'edge';
@@ -477,19 +468,13 @@ export interface ApiEdgeEdge extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    conceptual: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::conceptual.conceptual'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    from: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::edge.edge'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    to: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -499,7 +484,6 @@ export interface ApiEdgeEdge extends Struct.CollectionTypeSchema {
 export interface ApiExamExam extends Struct.CollectionTypeSchema {
   collectionName: 'exams';
   info: {
-    description: 'Exam metadata and grouped topics';
     displayName: 'Exam';
     pluralName: 'exams';
     singularName: 'exam';
@@ -511,13 +495,10 @@ export interface ApiExamExam extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    highYieldTopics: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::exam.exam'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    subjects: Schema.Attribute.JSON;
-    topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -527,7 +508,6 @@ export interface ApiExamExam extends Struct.CollectionTypeSchema {
 export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
   collectionName: 'profiles';
   info: {
-    description: 'User profile linked to a plugin user';
     displayName: 'Profile';
     pluralName: 'profiles';
     singularName: 'profile';
@@ -536,18 +516,9 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    college: Schema.Attribute.String;
-    collegeEmail: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dailyTopicLimit: Schema.Attribute.Integer;
-    defaultSessionDuration: Schema.Attribute.Integer;
-    examDate: Schema.Attribute.DateTime;
-    examType: Schema.Attribute.String;
-    isInstituteLinked: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>;
-    isOnBreak: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -555,20 +526,9 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    rollNo: Schema.Attribute.String;
-    studyMode: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    user_topics: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::user-topic.user-topic'
-    >;
-    year: Schema.Attribute.Integer;
   };
 }
 
@@ -576,7 +536,6 @@ export interface ApiQuestionNodeQuestionNode
   extends Struct.CollectionTypeSchema {
   collectionName: 'question_nodes';
   info: {
-    description: 'Node in conceptual graph that references a question';
     displayName: 'Question Node';
     pluralName: 'question-nodes';
     singularName: 'question-node';
@@ -585,10 +544,6 @@ export interface ApiQuestionNodeQuestionNode
     draftAndPublish: false;
   };
   attributes: {
-    conceptual: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::conceptual.conceptual'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -598,9 +553,7 @@ export interface ApiQuestionNodeQuestionNode
       'api::question-node.question-node'
     > &
       Schema.Attribute.Private;
-    node: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    question: Schema.Attribute.Relation<'manyToOne', 'api::question.question'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -610,7 +563,6 @@ export interface ApiQuestionNodeQuestionNode
 export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
   collectionName: 'questions';
   info: {
-    description: 'MCQ or question definitions';
     displayName: 'Question';
     pluralName: 'questions';
     singularName: 'question';
@@ -619,7 +571,6 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    correctAnswer: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -629,62 +580,44 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
       'api::question.question'
     > &
       Schema.Attribute.Private;
-    options: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    question: Schema.Attribute.Text;
-    question_nodes: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::question-node.question-node'
-    >;
-    topic: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiSessionSession extends Struct.CollectionTypeSchema {
-  collectionName: 'sessions';
+export interface ApiStudySessionStudySession
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'study_sessions';
   info: {
-    description: 'Study/revision session tracked per user-topic';
-    displayName: 'Session';
-    pluralName: 'sessions';
-    singularName: 'session';
+    displayName: 'Study Session';
+    pluralName: 'study-sessions';
+    singularName: 'study-session';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    isPaused: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::session.session'
+      'api::study-session.study-session'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    scheduledFor: Schema.Attribute.DateTime;
-    scoreActivity: Schema.Attribute.String;
-    timeAllotted: Schema.Attribute.Integer;
-    timeTakenForActivity: Schema.Attribute.Integer;
-    timeTakenForRevision: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_topic: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::user-topic.user-topic'
-    >;
   };
 }
 
 export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
   collectionName: 'topics';
   info: {
-    description: 'A study topic which may be conceptual or MCQ-based';
     displayName: 'Topic';
     pluralName: 'topics';
     singularName: 'topic';
@@ -693,34 +626,22 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    conceptual: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::conceptual.conceptual'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    exams: Schema.Attribute.Relation<'manyToMany', 'api::exam.exam'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'> &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_topics: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::user-topic.user-topic'
-    >;
   };
 }
 
 export interface ApiUserTopicUserTopic extends Struct.CollectionTypeSchema {
   collectionName: 'user_topics';
   info: {
-    description: 'Per-user tracking info for a topic';
     displayName: 'User Topic';
     pluralName: 'user-topics';
     singularName: 'user-topic';
@@ -732,21 +653,13 @@ export interface ApiUserTopicUserTopic extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    lastSession: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::user-topic.user-topic'
     > &
       Schema.Attribute.Private;
-    memoryLocation: Schema.Attribute.String;
-    nextSession: Schema.Attribute.DateTime;
-    profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
     publishedAt: Schema.Attribute.DateTime;
-    sessions: Schema.Attribute.Relation<'oneToMany', 'api::session.session'>;
-    timeRemaining: Schema.Attribute.Integer;
-    timeTotal: Schema.Attribute.Integer;
-    topic: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1269,7 +1182,7 @@ declare module '@strapi/strapi' {
       'api::profile.profile': ApiProfileProfile;
       'api::question-node.question-node': ApiQuestionNodeQuestionNode;
       'api::question.question': ApiQuestionQuestion;
-      'api::session.session': ApiSessionSession;
+      'api::study-session.study-session': ApiStudySessionStudySession;
       'api::topic.topic': ApiTopicTopic;
       'api::user-topic.user-topic': ApiUserTopicUserTopic;
       'plugin::content-releases.release': PluginContentReleasesRelease;

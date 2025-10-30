@@ -4,40 +4,11 @@
   "info": {
     "singularName": "topic",
     "pluralName": "topics",
-    "displayName": "Topic",
-    "description": "A study topic which may be conceptual or MCQ-based"
+    "displayName": "Topic"
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
-  "attributes": {
-    "name": {
-      "type": "string"
-    },
-    "conceptual": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::conceptual.conceptual",
-      "inversedBy": "topic"
-    },
-    "questions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::question.question",
-      "mappedBy": "topic"
-    },
-    "exams": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::exam.exam",
-      "mappedBy": "topics"
-    },
-    "user_topics": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::user-topic.user-topic",
-      "mappedBy": "topic"
-    }
-  }
+  "attributes": {}
 }

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * profile router
  */

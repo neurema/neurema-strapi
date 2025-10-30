@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "study_sessions",
+  "info": {
+    "singularName": "study-session",
+    "pluralName": "study-sessions",
+    "displayName": "Study Session"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

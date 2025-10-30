@@ -1,9 +1,7 @@
-'use strict';
-
 /**
- * profile service
+ * profile controller
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::profile.profile');
+export default factories.createCoreController('api::profile.profile');
