@@ -10,10 +10,8 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
-    "subjects": {
-      "type": "json"
-    },
     "highYieldTopics": {
       "type": "json"
     },
@@ -21,6 +19,12 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::topic.topic",
+      "inversedBy": "exams"
+    },
+    "subjects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subject.subject",
       "inversedBy": "exams"
     }
   }
