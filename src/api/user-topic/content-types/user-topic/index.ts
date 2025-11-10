@@ -1,0 +1,52 @@
+export default {
+  kind: 'collectionType',
+  collectionName: 'user_topics',
+  info: {
+    singularName: 'user-topic',
+    pluralName: 'user-topics',
+    displayName: 'User Topic',
+    description: 'Per-user tracking info for a topic',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  pluginOptions: {},
+  attributes: {
+    memoryLocation: {
+      type: 'string',
+    },
+    lastSession: {
+      type: 'datetime',
+    },
+    nextSession: {
+      type: 'datetime',
+    },
+    timeTotal: {
+      type: 'integer',
+    },
+    timeRemaining: {
+      type: 'integer',
+    },
+    profile: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::profile.profile',
+      inversedBy: 'user_topics',
+    },
+    topic: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::topic.topic',
+      inversedBy: 'user_topics',
+    },
+    sessions: {
+      type: 'relation',
+      relation: 'oneToMany',
+      target: 'api::study-session.study-session',
+      mappedBy: 'user_topic',
+    },
+    revisionsDone: {
+      type: 'integer',
+    },
+  },
+};

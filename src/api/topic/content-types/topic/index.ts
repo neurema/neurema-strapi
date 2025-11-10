@@ -1,0 +1,46 @@
+export default {
+  kind: 'collectionType',
+  collectionName: 'topics',
+  info: {
+    singularName: 'topic',
+    pluralName: 'topics',
+    displayName: 'Topic',
+    description: 'A study topic which may be conceptual or MCQ-based',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  pluginOptions: {},
+  attributes: {
+    name: {
+      type: 'string',
+    },
+    conceptual: {
+      type: 'relation',
+      relation: 'oneToOne',
+      target: 'api::conceptual.conceptual',
+      inversedBy: 'topic',
+    },
+    questions: {
+      type: 'relation',
+      relation: 'oneToMany',
+      target: 'api::question.question',
+      mappedBy: 'topic',
+    },
+    user_topics: {
+      type: 'relation',
+      relation: 'oneToMany',
+      target: 'api::user-topic.user-topic',
+      mappedBy: 'topic',
+    },
+    section: {
+      type: 'string',
+    },
+    subject: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::subject.subject',
+      inversedBy: 'topics',
+    },
+  },
+};

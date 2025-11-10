@@ -1,0 +1,43 @@
+export default {
+  kind: 'collectionType',
+  collectionName: 'study_sessions',
+  info: {
+    singularName: 'study-session',
+    pluralName: 'study-sessions',
+    displayName: 'Study Session',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  pluginOptions: {},
+  attributes: {
+    isPaused: {
+      type: 'boolean',
+      default: false,
+    },
+    scheduledFor: {
+      type: 'datetime',
+    },
+    timeTakenForRevision: {
+      type: 'integer',
+    },
+    timeTakenForActivity: {
+      type: 'integer',
+    },
+    timeAllotted: {
+      type: 'integer',
+    },
+    scoreActivity: {
+      type: 'string',
+    },
+    user_topic: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::user-topic.user-topic',
+      inversedBy: 'sessions',
+    },
+    difficultyLevel: {
+      type: 'string',
+    },
+  },
+};

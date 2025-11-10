@@ -1,0 +1,30 @@
+export default {
+  kind: 'collectionType',
+  collectionName: 'question_nodes',
+  info: {
+    singularName: 'question-node',
+    pluralName: 'question-nodes',
+    displayName: 'Question Node',
+    description: 'Node in conceptual graph that references a question',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  attributes: {
+    node: {
+      type: 'string',
+    },
+    question: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::question.question',
+      inversedBy: 'question_nodes',
+    },
+    conceptual: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'api::conceptual.conceptual',
+      inversedBy: 'question_nodes',
+    },
+  },
+};

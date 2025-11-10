@@ -1,0 +1,30 @@
+export default {
+  kind: 'collectionType',
+  collectionName: 'subjects',
+  info: {
+    singularName: 'subject',
+    pluralName: 'subjects',
+    displayName: 'Subject',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  pluginOptions: {},
+  attributes: {
+    name: {
+      type: 'string',
+    },
+    exams: {
+      type: 'relation',
+      relation: 'manyToMany',
+      target: 'api::exam.exam',
+      mappedBy: 'subjects',
+    },
+    topics: {
+      type: 'relation',
+      relation: 'oneToMany',
+      target: 'api::topic.topic',
+      mappedBy: 'subject',
+    },
+  },
+};
