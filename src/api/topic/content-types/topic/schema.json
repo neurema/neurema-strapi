@@ -4,7 +4,7 @@
   "info": {
     "singularName": "topic",
     "pluralName": "topics",
-    "displayName": "Sub Topic",
+    "displayName": "Topic",
     "description": "A study topic which may be conceptual or MCQ-based"
   },
   "options": {
@@ -27,17 +27,20 @@
       "target": "api::question.question",
       "mappedBy": "topic"
     },
-    "exams": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::exam.exam",
-      "mappedBy": "topics"
-    },
     "user_topics": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::user-topic.user-topic",
       "mappedBy": "topic"
+    },
+    "section": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "topics"
     }
   }
 }

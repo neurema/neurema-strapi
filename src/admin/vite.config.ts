@@ -9,7 +9,7 @@ export default (config: UserConfig) => {
       },
     },
     server: {
-    allowedHosts: ['neurema.com', 'www.neurema.com'],
+    allowedHosts: ['neurema.com', 'www.neurema.com', 'admin.neurema.com', 'www.admin.neurema.com'],
     }
   });
 };

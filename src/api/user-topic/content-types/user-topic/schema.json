@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "memoryLocation": {
       "type": "string"
@@ -43,6 +44,9 @@
       "relation": "oneToMany",
       "target": "api::study-session.study-session",
       "mappedBy": "user_topic"
+    },
+    "revisionsDone": {
+      "type": "integer"
     }
   }
 }
