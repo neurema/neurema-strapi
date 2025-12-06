@@ -38,6 +38,9 @@
     },
     "difficultyLevel": {
       "type": "string"
+    },
+    "stayTopicId": {
+      "type": "string"
     }
   }
 }

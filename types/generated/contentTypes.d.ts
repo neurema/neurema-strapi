@@ -511,7 +511,7 @@ export interface ApiExamExam extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    highYieldTopics: Schema.Attribute.JSON;
+    HighYieldTopics: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::exam.exam'> &
       Schema.Attribute.Private;
@@ -669,6 +669,7 @@ export interface ApiStudySessionStudySession
     publishedAt: Schema.Attribute.DateTime;
     scheduledFor: Schema.Attribute.DateTime;
     scoreActivity: Schema.Attribute.String;
+    stayTopicId: Schema.Attribute.String;
     timeAllotted: Schema.Attribute.Integer;
     timeTakenForActivity: Schema.Attribute.Integer;
     timeTakenForRevision: Schema.Attribute.Integer;

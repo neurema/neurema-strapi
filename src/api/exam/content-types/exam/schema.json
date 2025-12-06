@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "highYieldTopics": {
-      "type": "json"
-    },
     "subjects": {
       "type": "relation",
       "relation": "manyToMany",
@@ -23,6 +20,11 @@
     },
     "name": {
       "type": "string"
+    },
+    "HighYieldTopics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::topic.topic"
     }
   }
 }
