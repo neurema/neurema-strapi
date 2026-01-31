@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "institutes",
+  "info": {
+    "singularName": "institute",
+    "pluralName": "institutes",
+    "displayName": "Institute"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "emaildomain": {
+      "type": "string"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::profile.profile",
+      "mappedBy": "institute"
+    },
+    "teachers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "teaching_institute"
+    },
+    "classrooms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::classroom.classroom",
+      "mappedBy": "institute"
+    },
+    "subdomain": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classrooms",
+  "info": {
+    "singularName": "classroom",
+    "pluralName": "classrooms",
+    "displayName": "Classroom"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "classCode": {
+      "type": "string"
+    },
+    "institute": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::institute.institute",
+      "inversedBy": "classrooms"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "mappedBy": "classroom"
+    },
+    "teachers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "classrooms"
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "classrooms"
+    }
+  }
+}

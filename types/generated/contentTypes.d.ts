@@ -430,6 +430,82 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnalysisAnalysis extends Struct.CollectionTypeSchema {
+  collectionName: 'analyses';
+  info: {
+    displayName: 'Analysis';
+    pluralName: 'analyses';
+    singularName: 'analysis';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    areaOfImprovement: Schema.Attribute.Text;
+    blindSpots: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::analysis.analysis'
+    > &
+      Schema.Attribute.Private;
+    metrics: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    strongPoints: Schema.Attribute.Text;
+    study_session: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::study-session.study-session'
+    >;
+    transcription: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    weakPoints: Schema.Attribute.Text;
+  };
+}
+
+export interface ApiClassroomClassroom extends Struct.CollectionTypeSchema {
+  collectionName: 'classrooms';
+  info: {
+    displayName: 'Classroom';
+    pluralName: 'classrooms';
+    singularName: 'classroom';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    classCode: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    institute: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::institute.institute'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::classroom.classroom'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    students: Schema.Attribute.Relation<'manyToMany', 'api::profile.profile'>;
+    teachers: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiConceptualConceptual extends Struct.CollectionTypeSchema {
   collectionName: 'conceptuals';
   info: {
@@ -524,6 +600,45 @@ export interface ApiExamExam extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiInstituteInstitute extends Struct.CollectionTypeSchema {
+  collectionName: 'institutes';
+  info: {
+    displayName: 'Institute';
+    pluralName: 'institutes';
+    singularName: 'institute';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    classrooms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::classroom.classroom'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emaildomain: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::institute.institute'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    students: Schema.Attribute.Relation<'oneToMany', 'api::profile.profile'>;
+    subdomain: Schema.Attribute.String;
+    teachers: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
   collectionName: 'profiles';
   info: {
@@ -536,7 +651,10 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    college: Schema.Attribute.String;
+    classroom: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::classroom.classroom'
+    >;
     collegeEmail: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -545,6 +663,10 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     defaultSessionDuration: Schema.Attribute.Integer;
     examDate: Schema.Attribute.DateTime;
     examType: Schema.Attribute.String;
+    institute: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::institute.institute'
+    >;
     isInstituteLinked: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
     isOnBreak: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -557,6 +679,7 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     rollNo: Schema.Attribute.String;
     studyMode: Schema.Attribute.String;
+    topics: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -568,6 +691,7 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::user-topic.user-topic'
     >;
+    vivaCount: Schema.Attribute.Integer;
     year: Schema.Attribute.Integer;
   };
 }
@@ -655,6 +779,7 @@ export interface ApiStudySessionStudySession
     draftAndPublish: false;
   };
   attributes: {
+    analysis: Schema.Attribute.Relation<'oneToOne', 'api::analysis.analysis'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -725,6 +850,10 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    classrooms: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::classroom.classroom'
+    >;
     conceptual: Schema.Attribute.Relation<
       'oneToOne',
       'api::conceptual.conceptual'
@@ -736,6 +865,10 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    ownerProfile: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::profile.profile'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     section: Schema.Attribute.String;
@@ -1248,6 +1381,10 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    classrooms: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::classroom.classroom'
+    >;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1277,6 +1414,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    teaching_institute: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::institute.institute'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1300,9 +1441,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::analysis.analysis': ApiAnalysisAnalysis;
+      'api::classroom.classroom': ApiClassroomClassroom;
       'api::conceptual.conceptual': ApiConceptualConceptual;
       'api::edge.edge': ApiEdgeEdge;
       'api::exam.exam': ApiExamExam;
+      'api::institute.institute': ApiInstituteInstitute;
       'api::profile.profile': ApiProfileProfile;
       'api::question-node.question-node': ApiQuestionNodeQuestionNode;
       'api::question.question': ApiQuestionQuestion;

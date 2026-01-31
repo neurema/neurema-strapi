@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "analyses",
+  "info": {
+    "singularName": "analysis",
+    "pluralName": "analyses",
+    "displayName": "Analysis"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "weakPoints": {
+      "type": "text"
+    },
+    "blindSpots": {
+      "type": "text"
+    },
+    "strongPoints": {
+      "type": "text"
+    },
+    "metrics": {
+      "type": "text"
+    },
+    "areaOfImprovement": {
+      "type": "text"
+    },
+    "transcription": {
+      "type": "text"
+    },
+    "study_session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::study-session.study-session",
+      "inversedBy": "analysis"
+    }
+  }
+}

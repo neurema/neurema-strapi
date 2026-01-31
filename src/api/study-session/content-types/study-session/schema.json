@@ -41,6 +41,12 @@
     },
     "stayTopicId": {
       "type": "string"
+    },
+    "analysis": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::analysis.analysis",
+      "mappedBy": "study_session"
     }
   }
 }

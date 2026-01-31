@@ -41,6 +41,18 @@
       "relation": "manyToOne",
       "target": "api::subject.subject",
       "inversedBy": "topics"
+    },
+    "ownerProfile": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "topics"
+    },
+    "classrooms": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::classroom.classroom",
+      "inversedBy": "topics"
     }
   }
 }

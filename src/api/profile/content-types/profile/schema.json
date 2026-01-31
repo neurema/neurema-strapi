@@ -34,9 +34,6 @@
       "type": "boolean",
       "default": false
     },
-    "college": {
-      "type": "string"
-    },
     "collegeEmail": {
       "type": "string"
     },
@@ -57,6 +54,27 @@
       "relation": "oneToMany",
       "target": "api::user-topic.user-topic",
       "mappedBy": "profile"
+    },
+    "vivaCount": {
+      "type": "integer"
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "ownerProfile"
+    },
+    "institute": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::institute.institute",
+      "inversedBy": "students"
+    },
+    "classroom": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::classroom.classroom",
+      "inversedBy": "students"
     }
   }
 }
