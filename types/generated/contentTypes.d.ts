@@ -482,6 +482,8 @@ export interface ApiClassroomClassroom extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    exam: Schema.Attribute.Relation<'manyToOne', 'api::exam.exam'>;
+    examDate: Schema.Attribute.Date;
     institute: Schema.Attribute.Relation<
       'manyToOne',
       'api::institute.institute'
@@ -584,6 +586,10 @@ export interface ApiExamExam extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    classrooms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::classroom.classroom'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -615,6 +621,7 @@ export interface ApiInstituteInstitute extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::classroom.classroom'
     >;
+    color: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -625,6 +632,7 @@ export interface ApiInstituteInstitute extends Struct.CollectionTypeSchema {
       'api::institute.institute'
     > &
       Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     students: Schema.Attribute.Relation<'oneToMany', 'api::profile.profile'>;
@@ -914,6 +922,7 @@ export interface ApiUserTopicUserTopic extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::study-session.study-session'
     >;
+    teacherInstructions: Schema.Attribute.Text;
     timeRemaining: Schema.Attribute.Integer;
     timeTotal: Schema.Attribute.Integer;
     topic: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;

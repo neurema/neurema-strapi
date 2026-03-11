@@ -47,6 +47,9 @@
     },
     "revisionsDone": {
       "type": "integer"
+    },
+    "teacherInstructions": {
+      "type": "text"
     }
   }
 }

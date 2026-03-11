@@ -25,6 +25,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::topic.topic"
+    },
+    "classrooms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::classroom.classroom",
+      "mappedBy": "exam"
     }
   }
 }

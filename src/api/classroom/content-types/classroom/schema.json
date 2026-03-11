@@ -40,6 +40,15 @@
       "relation": "manyToMany",
       "target": "api::topic.topic",
       "mappedBy": "classrooms"
+    },
+    "exam": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exam.exam",
+      "inversedBy": "classrooms"
+    },
+    "examDate": {
+      "type": "date"
     }
   }
 }
