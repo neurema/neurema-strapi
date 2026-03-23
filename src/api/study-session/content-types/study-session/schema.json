@@ -39,9 +39,6 @@
     "difficultyLevel": {
       "type": "string"
     },
-    "stayTopicId": {
-      "type": "string"
-    },
     "analysis": {
       "type": "relation",
       "relation": "oneToOne",

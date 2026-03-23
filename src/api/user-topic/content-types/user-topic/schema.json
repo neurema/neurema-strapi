@@ -50,6 +50,9 @@
     },
     "teacherInstructions": {
       "type": "text"
+    },
+    "stayTopicId": {
+      "type": "string"
     }
   }
 }

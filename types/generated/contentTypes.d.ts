@@ -802,7 +802,6 @@ export interface ApiStudySessionStudySession
     publishedAt: Schema.Attribute.DateTime;
     scheduledFor: Schema.Attribute.DateTime;
     scoreActivity: Schema.Attribute.String;
-    stayTopicId: Schema.Attribute.String;
     timeAllotted: Schema.Attribute.Integer;
     timeTakenForActivity: Schema.Attribute.Integer;
     timeTakenForRevision: Schema.Attribute.Integer;
@@ -922,6 +921,7 @@ export interface ApiUserTopicUserTopic extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::study-session.study-session'
     >;
+    stayTopicId: Schema.Attribute.String;
     teacherInstructions: Schema.Attribute.Text;
     timeRemaining: Schema.Attribute.Integer;
     timeTotal: Schema.Attribute.Integer;
